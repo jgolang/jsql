@@ -13,12 +13,12 @@ var TimeLayout = "2006-01-02 15:04:05-06:00" // for Guatemala UTC
 
 // GetQueryString Generate string sql query. Avoid SQL injection.
 func GetQueryString(query string, params ...interface{}) (string, error) {
-	valid := regexp.MustCompile(` @(([a-z]|[A-Z]|[0-9])+)( |$)`)
+	valid := regexp.MustCompile(` @(([a-z]|[A-Z]|[0-9])+)( |$|)`)
 
 	for _, param := range params {
 		sqlparam := param.(sql.NamedArg)
 		value := getValue(sqlparam.Value)
-		prm := regexp.MustCompile(` @` + sqlparam.Name + `( |$)`)
+		prm := regexp.MustCompile(` @` + sqlparam.Name + `( |$|)`)
 		for prm.MatchString(query) {
 			query = prm.ReplaceAllLiteralString(query, fmt.Sprintf(" %s ", value))
 		}
