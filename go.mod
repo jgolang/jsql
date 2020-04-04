@@ -1,3 +1,3 @@
-module github.com/jgolang/mysqltools
+module github.com/jgolang/jsql
 
 go 1.12
